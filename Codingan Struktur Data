@@ -7,7 +7,7 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
-
+     
     def append(self, name, price):
         new_node = Node(name, price)
         if not self.head:
@@ -17,3 +17,50 @@ class LinkedList:
             while current.next:
                 current = current.next
             current.next = new_node
+
+    def display(self):
+        elements = []
+        current = self.head
+        while current:
+            elements.append(f"{current.name} -> {current.price}")
+            current = current.next
+        return " -> ".join(elements)
+
+    def calculate_total(self):
+        total = 0
+        current = self.head
+        while current:
+            total += current.price
+            current = current.next
+        return total
+
+def main():
+    menu = LinkedList()
+    menu.append("Miexue Ice Cream", 5000)
+    menu.append("Boba Shake", 16000)
+    menu.append("Mi Sundae", 14000)
+    menu.append("Mi Ganas", 11000)
+    menu.append("Creamy Mango Boba", 22000)
+
+    print("Menu:")
+    print(menu.display())
+
+    order = LinkedList()
+
+    while True:
+        user_input = input("\nAdd an item to the cart, view cart, or checkout (add/view/checkout): ").lower()
+        if user_input == "add":
+            item_name = input("Enter the name of the item: ")
+            item_price = int(input("Enter the price of the item: "))
+            order.append(item_name, item_price)
+        elif user_input == "view":
+            print("\nCart:")
+            print(order.display())
+        elif user_input == "checkout":
+            print(f"\nTotal: {order.calculate_total()}")
+            break
+        else:
+            print("Invalid input, please try again.")
+
+if __name__ == "__main__":
+    main()
